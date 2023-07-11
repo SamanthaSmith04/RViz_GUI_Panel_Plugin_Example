@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<library path="rviz_gui_test_panel">
-    <class name="rviz_gui_test/TestApp" 
+<library path="rviz_gui_panel_panel">
+    <class name="rviz_gui_panel/TestApp" 
            type="::TestPanel" 
            base_class_type="rviz_common::Panel">
         <description>
-            Test panel for rviz_gui_test.
+            Test panel for rviz_gui_panel.
         </description>
     </class>
 </library>

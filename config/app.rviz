@@ -23,7 +23,7 @@ Panels:
     Splitter Ratio: 0.5
   - Class: rviz_common/Transformation
     Name: Transformation
-  - Class: rviz_gui_test/TestApp
+  - Class: rviz_gui_panel/TestApp
     Name: TestApp
     Splitter Ratio: 0.5
 Visualization Manager:

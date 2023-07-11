@@ -1,1 +1,1 @@
-# rviz_gui_test
+# rviz_gui_panel

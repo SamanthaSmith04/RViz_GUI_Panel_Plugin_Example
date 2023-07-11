@@ -1,4 +1,4 @@
 <launch>
-    <arg name="rviz_config" default="$(find-pkg-share rviz_gui_test)/config/app.rviz"/>
+    <arg name="rviz_config" default="$(find-pkg-share rviz_gui_panel)/config/app.rviz"/>
     <node pkg="rviz2" exec="rviz2" args="-d $(var rviz_config)"/>
 </launch>
