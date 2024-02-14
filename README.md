@@ -8,3 +8,5 @@ Launching the demo:
 `ros2 launch rviz_gui_test/test.launch.xml`
 
 Pressing the buttons will publish new joint states and move the robot on the screen!
+
+The UI can be edited by opening `src/test_widget.ui` in QT Designer.
