@@ -1,11 +1,6 @@
 #include "rviz_widget.h"
-#include <QKeyEvent>
-#include <QRadioButton>
-#include <QPushButton>
 #include "ui_test_widget.h"  // Include the generated UI header file
-#include <sensor_msgs/msg/joint_state.hpp>
-#include <rclcpp/rclcpp.hpp>
-#include <rclcpp/time.hpp>
+
 
 TestWidget::TestWidget(rclcpp::Node::SharedPtr node, QWidget *parent) 
     : QWidget(parent)

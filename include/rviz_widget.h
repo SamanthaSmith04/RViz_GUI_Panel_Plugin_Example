@@ -4,8 +4,12 @@
 #include <QWidget>
 #include <rclcpp/node.hpp>
 #include <rclcpp/client.hpp>
-
-#include <std_srvs/srv/trigger.hpp>
+#include <QKeyEvent>
+#include <QRadioButton>
+#include <QPushButton>
+#include <sensor_msgs/msg/joint_state.hpp>
+#include <rclcpp/rclcpp.hpp>
+#include <rclcpp/time.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
 
 QT_BEGIN_NAMESPACE

@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+
+<robot name="wc5" xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:include filename="$(find rviz_gui_test)/urdfs/wc5_macro.xacro" />
+    <xacro:wc5 prefix=""/>
+</robot>

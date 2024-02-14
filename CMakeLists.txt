@@ -45,6 +45,7 @@ find_package(sensor_msgs REQUIRED)
 
 
 
+
 ##########################
 ## Compile Instructions ##
 ##########################
@@ -72,11 +73,6 @@ add_library(${PROJECT_NAME}_panel SHARED src/rviz_panel.cpp)
 target_link_libraries(${PROJECT_NAME}_panel ${PROJECT_NAME}_widget)
 ament_target_dependencies(${PROJECT_NAME}_panel rviz_common pluginlib)
 
-# Standalone Widget
-add_executable(test_app src/main.cpp)
-target_link_libraries(test_app Qt5::Widgets ${PROJECT_NAME}_widget)
-ament_target_dependencies(test_app rclcpp)
-
 
 #############
 ## Install ##
@@ -86,11 +82,9 @@ install(TARGETS ${PROJECT_NAME}_widget ${PROJECT_NAME}_panel EXPORT ${PROJECT_NA
 
 ament_export_targets(${PROJECT_NAME}-targets HAS_LIBRARY_TARGET)
 
-install(TARGETS test_app DESTINATION lib/${PROJECT_NAME})
-
 # Misc ROS Elements
 install(
-  DIRECTORY launch config
+  DIRECTORY launch config urdfs meshes
   DESTINATION share/${PROJECT_NAME}
 )
 

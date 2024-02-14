@@ -1,0 +1,188 @@
+<?xml version="1.0" ?>
+
+<robot name="wc5" xmlns:xacro="http://ros.org/wiki/xacro">
+<xacro:macro name="wc5" params="prefix">
+
+
+    <!-- Setup -->
+    <material name="environment_grey">
+        <color rgba="0.7 0.7 0.7 1"/>
+    </material>
+    <material name="environment_white">
+        <color rgba="0.99 0.99 0.99 1"/>
+    </material>
+
+
+    <!-- Global Origin - aligns with GP20HL base -->
+    <link name="world"/>
+
+
+    <!-- Robot - GP20HL -->
+    <xacro:include filename="$(find motoman_gp20_support)/urdf/gp20_hl_macro.xacro" />
+    <xacro:motoman_gp20_hl prefix="${prefix}"/>
+    <joint name="world-base_link" type="fixed">
+        <origin xyz="0 0 0.750" rpy="0 0 0"/>
+        <parent link="world"/>
+        <child link="${prefix}base_link"/>
+    </joint>
+
+
+    <!-- Yaskawa Motoman Manufactured 610mm Riser/Pedestal URDF -->
+    <link name="pedestal_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="environment_grey"/>
+            <geometry>
+                <mesh filename="package://rviz_gui_test/meshes/visual/riser_610mm.stl"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="environment_grey"/>
+            <geometry>
+                <mesh filename="package://rviz_gui_test/meshes/collision/riser_610mm.stl"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="pedestal_link-base_plate_link" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <parent link="world"/>
+        <child link="pedestal_link"/>
+    </joint>
+
+
+    <!-- CDME Manufactured 140mm Base Plate-->
+    <link name="baseplate_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <material name="environment_grey"/>
+            <geometry>
+                <mesh filename="package://rviz_gui_test/meshes/visual/skid.stl"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://rviz_gui_test/meshes/collision/skid.stl"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="base_link-base_plate_link" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <parent link="world"/>
+        <child link="baseplate_link"/>
+    </joint>
+
+
+    <!-- Environment -->
+    
+    <!-- Rough Collision Block - Back Wall -->
+    <link name="back_wall">
+        <visual>
+            <origin xyz="0 0 1.8288" rpy="0 0 0" />
+            <material name="environment_grey"/>
+            <geometry>
+                <box size="0.2 8 3.6576" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 1.8288" rpy="0 0 0" />
+            <geometry>
+                <box size="0.2 8 3.6576" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="world-back_wall" type="fixed">
+        <origin xyz="-1.7672 0 0" rpy="0 0 0" /> <!-- NOTE - Back wall is offset by 0.1524m (6in) to account for anything on the wall -->
+        <parent link="world"/>
+        <child link="back_wall"/>
+    </joint>
+
+
+    <!-- Rough Collison Block - Ceiling -->
+    <!-- 12ft from floor to just below lowest roof truss -->
+    <link name="ceiling">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.01" radius="6" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="world-ceiling" type="fixed">
+        <origin xyz="0 0 3.6576" rpy="0 0 0" /> 
+        <parent link="world"/>
+        <child link="ceiling"/>
+    </joint>
+
+
+    <!-- Rough Collision Block - Floor -->
+    <link name="floor">
+        <visual>
+            <origin xyz="0 0 -0.005" rpy="0 0 0" />
+            <material name="environment_white"/>
+            <geometry>
+                <cylinder length="0.01" radius="4" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 -0.005" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="0.01" radius="6" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="world-floor" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="world"/>
+        <child link="floor"/>
+    </joint>
+
+
+    <!-- Rough Collision Block - MH50 -->
+    <link name="mh50_rough_box">
+        <visual>
+            <origin xyz="0 0 1.5" rpy="0 0 0"/>
+            <material name="environment_white"/>
+            <geometry>
+                <box size="1 1 3"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 1.5" rpy="0 0 0"/>
+            <geometry>
+                <box size="1 1 3"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="world-mh50_box" type="fixed">
+        <origin xyz="1.3 -3.6 0" rpy="0 0 0"/> 
+        <parent link="world"/>
+        <child link="mh50_rough_box"/>
+    </joint>
+
+
+    <!-- Rough Collision Block - Side Lab Cabinets-->
+    <link name="cabinets">
+        <visual>
+            <origin xyz="0 0 1.5" rpy="0 0 0"/>
+            <material name="environment_white"/>
+            <geometry>
+                <box size="0.6096 0.918 3"/> 
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 1.5" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.6096 0.9144 3"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="world-cabinets" type="fixed">
+        <origin xyz="-1.524 2.0324 0" rpy="0 0 0"/> <!-- NOTE - overlaps with the wall because the wall is offset -->
+        <parent link="world"/>
+        <child link="cabinets"/>
+    </joint>
+
+</xacro:macro>
+</robot>

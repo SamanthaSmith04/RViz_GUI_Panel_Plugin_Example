@@ -1,4 +1,11 @@
 <launch>
-    <arg name="rviz_config" default="$(find-pkg-share rviz_gui_test)/config/app.rviz"/>
+
+    <arg name="robot_description"
+         default="$(command 'xacro $(find-pkg-share rviz_gui_test)/urdfs/wc5.xacro')"
+         description="[String] Path to URDF." />
+    <node pkg="robot_state_publisher" exec="robot_state_publisher" output="screen" >
+        <param name="robot_description" value="$(var robot_description)" />
+    </node>
+    <arg name="rviz_config" default="$(find-pkg-share rviz_gui_test)/config/rviz_config_test.rviz"/>
     <node pkg="rviz2" exec="rviz2" args="-d $(var rviz_config)"/>
 </launch>
